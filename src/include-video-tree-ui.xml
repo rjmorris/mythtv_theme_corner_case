@@ -1,0 +1,312 @@
+<window name="tree">
+  [% video_tree_width = 512 %]
+
+  <group name="footer_infobar" from="base_footer_infobar">
+    <textarea name="pagetitle">
+      <value>Video List</value>
+    </textarea>
+  </group>
+
+  <textarea name="breadcrumbs">
+    <area>10,10,-10,[% 2*h1_field_pixelsize %]</area>
+    <font>h1_foreground_font</font>
+    <align>left,top</align>
+    <multiline>yes</multiline>
+    <cutdown>left</cutdown>
+  </textarea>
+
+  <shape name="breadcrumbs_border">
+    <area>0,[% 10 + 2*h1_field_pixelsize %],100%,[% line_width %]</area>
+    <type>box</type>
+    <fill color="[% line_color %]"/>
+  </shape>
+
+  <buttontree name="videos">
+    <!-- <area>0,[% 10 + 2*h1_field_pixelsize + line_width + 10 %],[% video_tree_width %],[% body_height - 2*h1_field_pixelsize - line_width - 10 %]</area> -->
+    <area>100%-[% video_tree_width %],[% 10 + 2*h1_field_pixelsize + line_width + 10 %],[% video_tree_width %],[% body_height - 2*h1_field_pixelsize - line_width - 10 %]</area>
+    <numlists>1</numlists>
+    <buttonlist name="listtemplate" from="base_buttonlist">
+      <area>0,0,100%,100%</area>
+      <statetype name="buttonitem">
+        <state name="active">
+          <area>0,0,100%,[% 2*h1_field_pixelsize + video_tree_button_spacing %]</area>
+
+          <textarea name="buttontext">
+            <area>10,0,100%-10,[% 2*h1_field_pixelsize + video_tree_button_spacing %]</area>
+            <font>h1_active_unselected_button_font</font>
+            <align>left,top</align>
+            <multiline>yes</multiline>
+            <cutdown>yes</cutdown>
+          </textarea>
+
+          <!-- RJM-DEBUG: Will nodetype work inside the button list? Yes. -->
+          <!-- <imagetype name="icon"> -->
+          <!--   <area>100%-60,0,50,50</area> -->
+          <!--   <filename>images/mv_gallery-folder-reg.png</filename> -->
+          <!--   <preserveaspect>yes</preserveaspect> -->
+          <!-- </imagetype> -->
+          <!-- <imagetype name="screenshot"> -->
+          <!--   <area>100%-60,0,50,50</area> -->
+          <!--   <preserveaspect>yes</preserveaspect> -->
+          <!-- </imagetype> -->
+          <!-- <statetype name="nodetype"> -->
+          <!--   <position>100%-60,0</position> -->
+          <!--   <state name="subfolder"> -->
+          <!--     <imagetype name="icon"> -->
+          <!--       <area>0,0,50,50</area> -->
+          <!--       <filename>images/mv_gallery-folder-reg.png</filename> -->
+          <!--       <preserveaspect>yes</preserveaspect> -->
+          <!--     </imagetype> -->
+          <!--   </state> -->
+          <!-- </statetype> -->
+          <statetype name="nodetype">
+            <position>100%-60,0</position>
+            <state name="subfolder">
+              <imagetype name="screenshot">
+                <area>0,0,50,50</area>
+                <preserveaspect>yes</preserveaspect>
+              </imagetype>
+            </state>
+          </statetype>
+
+          <shape name="group_separator">
+            <area>0,[% 2*h1_field_pixelsize + video_tree_button_spacing %],100%,1</area>
+            <type>box</type>
+            <fill color="[% separator_color %]"/>
+          </shape>
+        </state>
+        <state name="selectedactive" from="active">
+          <shape name="item_background">
+            <area>0,[% -1*video_tree_button_spacing %],100%,[% 2*h1_field_pixelsize + 2*video_tree_button_spacing %]</area>
+            <fill color="[% active_selected_button_bgcolor %]" />
+          </shape>
+
+          <textarea name="buttontext">
+            <font>h1_active_selected_button_font</font>
+          </textarea>
+        </state>
+        <state name="inactive" from="active" />
+        <state name="selectedinactive" from="active" />
+      </statetype>
+    </buttonlist>
+  </buttontree>
+
+  <textarea name="position">
+    <!-- <area>[% video_tree_width - 210 %],[% body_height - h1_field_pixelsize + 10 %],200,[% h1_field_pixelsize %]</area> -->
+    <area>100%-210,[% body_height - h1_field_pixelsize + 10 %],200,[% h1_field_pixelsize %]</area>
+    <font>h2_background_font</font>
+    <align>right,vcenter</align>
+  </textarea>
+
+  <shape name="list_border">
+    <!-- <area>[% video_tree_width %],[% 10 + 2*h1_field_pixelsize + line_width %],[% line_width %],[% body_height - 2*h1_field_pixelsize - line_width %]</area> -->
+    <area>100%-[% video_tree_width %],[% 10 + 2*h1_field_pixelsize + line_width %],[% line_width %],[% body_height - 2*h1_field_pixelsize - line_width %]</area>
+    <type>box</type>
+    <fill color="#aaaaaa"/>
+  </shape>
+
+
+  [% details_group_y = 10 + 2*h1_field_pixelsize + line_width + 10 %]
+  [% details_group_height = body_height - details_group_y %]
+
+  <group name="folder_details">
+    <!-- <area>[% video_tree_width + 10 %],[% details_group_y %],100%-10,[% details_group_height %]</area> -->
+    <area>10,[% details_group_y %],100%-[% video_tree_width + 10 %],[% details_group_height %]</area>
+
+    [% title_y = 0 %]
+    [% title_height = 2*h1_field_pixelsize %]
+
+    <!-- <textarea name="title"> -->
+    <!--   <area>0,[% title_y %],100%,[% title_height %]</area> -->
+    <!--   <align>left,top</align> -->
+    <!--   <font>h1_foreground_font</font> -->
+    <!--   <multiline>yes</multiline> -->
+    <!--   <cutdown>yes</cutdown> -->
+    <!--   <template>%TITLE% [contains %CHILDCOUNT% items]</template> -->
+    <!-- </textarea> -->
+
+    <!-- <textarea name="childcount"> -->
+    <!--   <area>0,[% title_y + h1_field_pixelsize %],100%,[% h1_field_pixelsize %]</area> -->
+    <!--   <align>left,top</align> -->
+    <!--   <font>h2_foreground_font</font> -->
+    <!--   <template>%CHILDCOUNT% items in folder</template> -->
+    <!-- </textarea> -->
+
+    <!-- <statetype name="videolevel"> -->
+    <!--   <position>0,[% title_y + h1_field_pixelsize %]</position> -->
+    <!--   <state name="Lowest"> -->
+    <!--     <imagetype name="icon"> -->
+    <!--       <area>0,2,30,30</area> -->
+    <!--       <filename>mv_level_lowest.png</filename> -->
+    <!--     </imagetype> -->
+    <!--     <textarea name="label"> -->
+    <!--       <area>35,6,100,35</area> -->
+    <!--       <value>Lowest</value> -->
+    <!--       <font>h2_foreground_font</font> -->
+    <!--     </textarea> -->
+    <!--   </state> -->
+    <!-- </statetype> -->
+
+    <!-- <textarea name="debug_folder" depends="!cast"> -->
+    <!--   <area>100%-200,[% title_y + h1_field_pixelsize %],120,[% h1_field_pixelsize %]</area> -->
+    <!--   <align>left,top</align> -->
+    <!--   <font>h1_foreground_font</font> -->
+    <!--   <value>FOLDER</value> -->
+    <!-- </textarea> -->
+
+    <!-- <statetype name="trailerstate"> -->
+    <!--   <position>0,[% title_y + h1_field_pixelsize %]</position> -->
+    <!--   <state name="None"> -->
+    <!--     <textarea name="label"> -->
+    <!--       <area>0,0,100,35</area> -->
+    <!--       <value>no trailer</value> -->
+    <!--       <font>h2_foreground_font</font> -->
+    <!--     </textarea> -->
+    <!--   </state> -->
+    <!-- </statetype> -->
+
+    <!-- <statetype name="nodetype"> -->
+    <!--   <position>0,[% title_y + h1_field_pixelsize %]</position> -->
+    <!--   <state name="subfolder"> -->
+    <!--     <imagetype name="icon"> -->
+    <!--       <area>0,0,50,50</area> -->
+    <!--       <filename>images/mv_gallery-folder-reg.png</filename> -->
+    <!--       <preserveaspect>yes</preserveaspect> -->
+    <!--     </imagetype> -->
+    <!--   </state> -->
+    <!-- </statetype> -->
+
+    <!-- <statetype name="nodetype"> -->
+    <!--   <area>0,[% title_y + h1_field_pixelsize %],100%,[% h1_field_pixelsize %]</area> -->
+    <!--   <state name="subfolder"> -->
+    <!--     <area>0,0,100%,100%</area> -->
+    <!--     <textarea name="childcount"> -->
+    <!--       <area>0,0,100%,100%</area> -->
+    <!--       <align>left,top</align> -->
+    <!--       <font>h2_foreground_font</font> -->
+    <!--       <template>%CHILDCOUNT% items in folder</template> -->
+    <!--     </textarea> -->
+    <!--   </state> -->
+    <!-- </statetype> -->
+
+    <!-- [% art_y = title_y + title_height + 10 %] -->
+    <!-- [% art_height = details_group_height - art_y %] -->
+
+    <!-- <imagetype name="coverart" depends="!childcount"> -->
+    <!--   <area>0,[% art_y %],100%,[% art_height %]</area> -->
+    <!--   <preserveaspect>yes</preserveaspect> -->
+    <!-- </imagetype> -->
+
+    <!-- <imagetype name="fanart" depends="childcount"> -->
+    <!--   <area>0,[% art_y %],100%,[% art_height %]</area> -->
+    <!--   <preserveaspect>yes</preserveaspect> -->
+    <!-- </imagetype> -->
+
+  </group>
+
+  <group name="video_details">
+    <!-- <area>[% video_tree_width + 10 %],[% details_group_y %],100%-10,[% details_group_height %]</area> -->
+    <area>10,[% details_group_y %],100%-[% video_tree_width + 10 %],[% details_group_height %]</area>
+
+    [% title_y = 0 %]
+    [% title_height = 2*h1_field_pixelsize %]
+
+    <textarea name="title">
+      <area>0,[% title_y %],100%,[% title_height %]</area>
+      <align>left,top</align>
+      <font>h1_foreground_font</font>
+      <multiline>yes</multiline>
+      <cutdown>yes</cutdown>
+      <template>%TITLE%% - |SUBTITLE%</template>
+    </textarea>
+
+    <!-- <textarea name="debug_video"> -->
+    <!--   <area>100%-80,[% title_y + h1_field_pixelsize %],80,[% h1_field_pixelsize %]</area> -->
+    <!--   <align>left,top</align> -->
+    <!--   <font>h1_foreground_font</font> -->
+    <!--   <value>VIDEO</value> -->
+    <!-- </textarea> -->
+    
+    [% description_y = title_y + title_height + 10 %]
+    [% description_height = 5*h1_field_pixelsize %]
+
+    <textarea name="description">
+      <area>0,[% description_y %],100%,[% description_height %]</area>
+      <align>left,top</align>
+      <font>h2_foreground_font</font>
+      <multiline>yes</multiline>
+      <cutdown>yes</cutdown>
+      <!-- <value>[no description]</value> -->
+    </textarea>
+
+    <!-- The cast appears in a seemingly random order, so it's not really worth
+         displaying right up front like this.
+    -->
+    <!-- [% cast_height = 2*h1_field_pixelsize %] -->
+    <!-- [% cast_y =  details_group_height - cast_height - 10 %] -->
+
+    <!-- <textarea name="cast"> -->
+    <!--   <area>0,[% cast_y %],100%,[% cast_height %]</area> -->
+    <!--   <align>left,top</align> -->
+    <!--   <font>h2_foreground_font</font> -->
+    <!--   <multiline>yes</multiline> -->
+    <!--   <cutdown>yes</cutdown> -->
+    <!--   <template>Cast: %1</template> -->
+    <!-- </textarea> -->
+
+    [% screenshot_y = description_y + description_height + 10 %]
+    [% screenshot_height = details_group_height - screenshot_y - 10 %]
+    [% screenshot_width = 400 %]
+
+    <imagetype name="screenshot">
+      <area>100%-[% screenshot_width %],[% screenshot_y %],[% screenshot_width %],[% screenshot_height %]</area>
+      <preserveaspect>yes</preserveaspect>
+    </imagetype>
+
+    <imagetype name="coverart" depends="!screenshot">
+      <area>100%-[% screenshot_width %],[% screenshot_y %],[% screenshot_width %],[% screenshot_height %]</area>
+      <preserveaspect>yes</preserveaspect>
+    </imagetype>
+
+    [% date_y = description_y + description_height + 10 %]
+    [% date_height = h1_field_pixelsize %]
+
+    <textarea name="releasedate">
+      <area>0,[% date_y %],100%-[% screenshot_width %],[% date_height %]</area>
+      <align>left,top</align>
+      <font>h2_foreground_font</font>
+      <template>Released: %1</template>
+    </textarea>
+
+    [% runtime_y = date_y + date_height + 10 %]
+    [% runtime_height = h1_field_pixelsize %]
+
+    <textarea name="length">
+      <area>0,[% runtime_y %],100%-[% screenshot_width %],[% runtime_height %]</area>
+      <align>left,top</align>
+      <font>h2_foreground_font</font>
+      <template>Runtime: %1</template>
+    </textarea>
+
+    [% rated_y = runtime_y + runtime_height + 10 %]
+    [% rated_height = h1_field_pixelsize %]
+
+    <textarea name="rating">
+      <area>0,[% rated_y %],100%-[% screenshot_width %],[% rated_height %]</area>
+      <align>left,top</align>
+      <font>h2_foreground_font</font>
+      <template>Rated: %1</template>
+    </textarea>
+
+    [% director_y = rated_y + rated_height + 10 %]
+    [% director_height = h1_field_pixelsize %]
+
+    <textarea name="director">
+      <area>0,[% director_y %],100%-[% screenshot_width %],[% director_height %]</area>
+      <align>left,top</align>
+      <font>h2_foreground_font</font>
+      <template>Director: %1</template>
+    </textarea>
+
+  </group>
+</window>

@@ -1,0 +1,100 @@
+<window name="browser">
+  <group name="footer_infobar" from="base_footer_infobar">
+    <textarea name="pagetitle">
+      <value>Video Browser</value>
+    </textarea>
+  </group>
+
+  <textarea name="breadcrumbs">
+    <area>10,10,-10,[% 2*h1_field_pixelsize %]</area>
+    <font>h1_foreground_font</font>
+    <align>left,top</align>
+    <multiline>yes</multiline>
+    <cutdown>left</cutdown>
+  </textarea>
+
+  <shape name="breadcrumbs_border">
+    <area>0,[% 10 + 2*h1_field_pixelsize %],100%,[% line_width %]</area>
+    <type>box</type>
+    <fill color="[% line_color %]"/>
+  </shape>
+
+  <buttonlist name="videos" from="base_buttonlist">
+    <area>0,[% 10 + 2*h1_field_pixelsize + line_width + 10 %],100%,[% body_height - 2*h1_field_pixelsize - line_width - 10 %]</area>
+    <spacing>[% video_browser_button_spacing %]</spacing>
+    <!-- The default arrange=fixed doesn't work when the buttons change size,
+         like these do. Unfortunately arrange=fixed is the only one where
+         wrapstyle=free truly works. With the others, the selected item sticks
+         in the middle most of the time. -->
+    <arrange>stack</arrange>
+    <statetype name="buttonitem">
+      <state name="active">
+        <area>0,0,100%,[% 2*h1_field_pixelsize + video_browser_button_spacing %]</area>
+
+        <textarea name="buttontext">
+          <area>10,0,100%-10,[% h1_field_pixelsize %]</area>
+          <font>h1_active_unselected_button_font</font>
+          <align>left,top</align>
+          <multiline>yes</multiline>
+          <cutdown>yes</cutdown>
+        </textarea>
+
+        <shape name="video_separator">
+          <area>0,[% 2*h1_field_pixelsize + video_browser_button_spacing %],100%,1</area>
+          <type>box</type>
+          <fill color="[% separator_color %]"/>
+        </shape>
+      </state>
+      <state name="selectedactive" from="active">
+        <area>0,0,100%,[% 6*h1_field_pixelsize + 5*video_browser_button_spacing %]</area>
+
+        <shape name="item_background">
+          <area>0,[% -1*video_browser_button_spacing %],100%,[% 6*h1_field_pixelsize + 6*video_browser_button_spacing %]</area>
+          <fill color="[% active_selected_button_bgcolor %]" />
+        </shape>
+
+        <!-- This is an ugly hack to fill in the little gap between the
+             previous separator and the top of this item. Attempting to extend
+             the main item_background into that gap throws the layout off for
+             some reason. That same strategy works fine in the group list. -->
+        <!-- <shape name="item_background2"> -->
+        <!--   <area>0,[% -1*video_browser_button_spacing %],100%,[% video_browser_button_spacing %]</area> -->
+        <!--   <type>box</type> -->
+        <!--   <fill color="[% active_selected_button_bgcolor %]" /> -->
+        <!-- </shape> -->
+
+        <textarea name="buttontext">
+          <font>h1_active_selected_button_font</font>
+        </textarea>
+
+        <statetype name="nodetype">
+          <area>0,[% h1_field_pixelsize %],[% screen_width %],[% 5*h1_field_pixelsize %]</area>
+          <state name="subfolder">
+
+            <imagetype name="icon">
+              <area>0,0,50,50</area>
+              <filename>images/mv_gallery-folder-reg.png</filename>
+              <preserveaspect>yes</preserveaspect>
+            </imagetype>
+          </state>
+        </statetype>
+        <textarea name="childcount">
+          <area>10,[% h1_field_pixelsize %],100%-10,[% h1_field_pixelsize %]</area>
+          <font>h1_active_selected_button_font</font>
+          <align>left,top</align>
+          <template>[folder contains %CHILDCOUNT% items]</template>
+        </textarea>
+        <imagetype name="banner">
+          <area>10,[% 2*h1_field_pixelsize %],100%-10,[% 4*h1_field_pixelsize %]</area>
+          <preserveaspect>yes</preserveaspect>
+        </imagetype>
+
+        <shape name="video_separator">
+          <area>0,[% 6*h1_field_pixelsize + 5*recordings_button_spacing %],100%,1</area>
+        </shape>
+      </state>
+      <state name="inactive" from="active" />
+      <state name="selectedinactive" from="active" />
+    </statetype>
+  </buttonlist>
+</window>

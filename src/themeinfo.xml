@@ -1,0 +1,27 @@
+<themeinfo>
+  <name>Corner Case</name>
+  <aspect>16:9</aspect>
+  <author>
+    <name>Joey Morris</name>
+  </author>
+
+  <types>
+    <type>UI</type>
+  </types>
+
+  <baseres>1280x720</baseres>
+
+  <version>
+    <major>29</major>
+    <minor>1</minor>
+  </version>
+
+  <detail>
+    <thumbnail name="preview">images/preview.png</thumbnail>
+    <description>Corner Case is designed to be a plain theme with a boxy
+    appearance. It contains no animations and very little artwork. Its goal is
+    to avoid displaying any distracting elements, while at the same time looking
+    clean and attractive.
+    </description>
+  </detail>
+</themeinfo>

@@ -1,0 +1,109 @@
+<window name="gallery">
+  <group name="footer_infobar" from="base_footer_infobar">
+    <textarea name="pagetitle">
+      <value>Video Gallery</value>
+    </textarea>
+  </group>
+
+  <textarea name="breadcrumbs">
+    <area>10,10,-10,[% 2*h1_field_pixelsize %]</area>
+    <font>h1_foreground_font</font>
+    <align>left,top</align>
+    <multiline>yes</multiline>
+    <cutdown>left</cutdown>
+  </textarea>
+
+  <shape name="breadcrumbs_border">
+    <area>0,[% 10 + 2*h1_field_pixelsize %],100%,[% line_width %]</area>
+    <type>box</type>
+    <fill color="[% line_color %]"/>
+  </shape>
+
+  [% details_height = 2*h1_field_pixelsize %]
+  [% details_y = footer_y - details_height %]
+
+  [% videos_y = 10 + 2*h1_field_pixelsize + line_width + 10 %]
+  [% videos_height = details_y - videos_y %]
+
+  [% button_size = 168 %]
+  [% button_buffer = 12 %]
+  [% selected_border_width = 6 %]
+
+  <buttonlist name="videos">
+    <area>10,[% videos_y %],100%-10,[% videos_height %]</area>
+    <layout>grid</layout>
+    <wrapstyle>flowing</wrapstyle>
+    <spacing>0</spacing>
+    <buttonarea>0,0,100%,100%</buttonarea>
+    <statetype name="buttonitem">
+      <state name="active">
+        <area>0,0,[% button_size %],[% button_size %]</area>
+        <imagetype name="buttonimage">
+          <area>[% button_buffer %],[% button_buffer %],[% button_size - 2*button_buffer %],[% button_size - 2*button_buffer %]</area>
+          <preserveaspect>yes</preserveaspect>
+          <alpha>192</alpha>
+        </imagetype>
+        <imagetype name="no_art" depends="!buttonimage">
+          <area>[% button_buffer %],[% button_buffer %],[% button_size - 2*button_buffer %],[% button_size - 2*button_buffer %]</area>
+          <preserveaspect>yes</preserveaspect>
+          <alpha>192</alpha>
+          <filename>images/mv_browse_nocover.png</filename>
+        </imagetype>
+        <statetype name="nodetype">
+          <position>0,0</position>
+          <state name="upfolder">
+            <imagetype name="icon">
+              <area>0,0,[% button_size %],[% button_size %]</area>
+              <filename>images/uparrow.png</filename>
+              <preserveaspect>yes</preserveaspect>
+            </imagetype>
+          </state>
+          <state name="subfolder">
+            <imagetype name="icon" depends="!buttonimage">
+              <area>0,0,50,50</area>
+              <filename>images/mv_gallery-folder-reg.png</filename>
+              <preserveaspect>yes</preserveaspect>
+            </imagetype>
+          </state>
+          <state name="default">
+          </state>
+        </statetype>
+      </state>
+      <state name="selectedactive" from="active">
+        <!-- <imagetype name="buttonimage"> -->
+        <!--   <alpha>255</alpha> -->
+        <!-- </imagetype> -->
+        <shape name="selected_border_top">
+          <area>0,0,[% button_size %],[% selected_border_width %]</area>
+          <type>box</type>
+          <fill color="[% active_selected_button_bgcolor %]" />
+        </shape>
+        <shape name="selected_border_right">
+          <area>100%-[% selected_border_width %],0,[% selected_border_width %],[% button_size %]</area>
+          <type>box</type>
+          <fill color="[% active_selected_button_bgcolor %]" />
+        </shape>
+        <shape name="selected_border_bottom">
+          <area>0,100%-[% selected_border_width %],[% button_size %],[% selected_border_width %]</area>
+          <type>box</type>
+          <fill color="[% active_selected_button_bgcolor %]" />
+        </shape>
+        <shape name="selected_border_left">
+          <area>0,0,[% selected_border_width %],[% button_size %]</area>
+          <type>box</type>
+          <fill color="[% active_selected_button_bgcolor %]" />
+        </shape>
+      </state>
+      <state name="selectedinactive" from="active" />
+    </statetype>
+  </buttonlist>
+
+  <textarea name="title">
+    <area>10,[% details_y %],100%,[% details_height %]</area>
+    <font>h1_foreground_font</font>
+    <multiline>yes</multiline>
+    <cutdown>yes</cutdown>
+    <align>top,left</align>
+    <template>%TITLE%% - |SUBTITLE%% (|YEAR|)%% |DESCRIPTION%</template>
+  </textarea>
+</window>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+    <style type="text/css">
+        body {
+          font-family: "DejaVu Sans", sans;
+        }
+        div {
+          margin: 10px 0px 20px 0px;
+          padding: 0px;
+          border: solid 1px [% separator_color %];
+        }
+        h1 {
+          margin: 0px;
+          padding: 2px 10px 2px 10px;
+          font-size: 130%;
+          font-weight: normal;
+          background-color: [% active_selected_button_bgcolor %];
+          color: [% active_selected_text_color %];
+        }
+        p {
+          margin: 0px;
+          padding: 10px 10px 10px 10px;
+          font-size: 120%;
+          color: [% foreground_text_color %];
+        }
+    </style>
+</head>
+
+<body>
+  <!--
+      Each element and its label must appear together on the same line.
+
+      Any line containing an element that isn't defined for the episode will be
+      removed, For example, if TITLE_PRONOUNCE isn't be defined, then the entire
+      line containing the TITLE_PRONOUNCE element will be removed before the
+      browser renders the page. Therefore, any HTML required to display the
+      TITLE_PRONOUNCE element should appear on the same line as the element
+      itself.
+
+      When searching for undefined element names, Myth searches for the name
+      surrounded by percent signs, and it stops once it finds the first
+      occurrence. Therefore, be sure not to surround any element names by
+      percent signs anywhere in this documentation or elsewhere in the file.
+      Otherwise Myth will see it, stop, and fail to process the real one below.
+    -->
+
+  <div><h1>%TITLE_LABEL%</h1><p>%TITLE%</p></div>
+  <div><h1>%TITLE_PRONOUNCE_LABEL%</h1><p>%TITLE_PRONOUNCE%</p></div>
+  <div><h1>%DESCRIPTION_LABEL%</h1><p>%DESCRIPTION%</p></div>
+  <div><h1>%EPISODE_LABEL%</h1><p>%EPISODE%</p></div>
+  <div><h1>%ORIGINAL_AIRDATE_LABEL%</h1><p>%ORIGINAL_AIRDATE%</p></div>
+  <div><h1>%ACTORS_LABEL%</h1><p>%ACTORS%</p></div>
+  <div><h1>%DIRECTOR_LABEL%</h1><p>%DIRECTOR%</p></div>
+  <div><h1>%PRODUCER_LABEL%</h1><p>%PRODUCER%</p></div>
+  <div><h1>%EXECUTIVE_PRODUCER_LABEL%</h1><p>%EXECUTIVE_PRODUCER%</p></div>
+  <div><h1>%WRITER_LABEL%</h1><p>%WRITER%</p></div>
+  <div><h1>%GUEST_STAR_LABEL%</h1><p>%GUEST_STAR%</p></div>
+  <div><h1>%HOST_LABEL%</h1><p>%HOST%</p></div>
+  <div><h1>%ADAPTER_LABEL%</h1><p>%ADAPTER%</p></div>
+  <div><h1>%PRESENTER_LABEL%</h1><p>%PRESENTER%</p></div>
+  <div><h1>%COMMENTATOR_LABEL%</h1><p>%COMMENTATOR%</p></div>
+  <div><h1>%GUEST_LABEL%</h1><p>%GUEST%</p></div>
+  <div><h1>%CATEGORY_LABEL%</h1><p>%CATEGORY%</p></div>
+  <div><h1>%MYTHTV_STATUS_LABEL%</h1><p>%MYTHTV_STATUS%</p></div>
+</body>
+
+</html>

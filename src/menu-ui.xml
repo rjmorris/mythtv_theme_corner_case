@@ -1,0 +1,71 @@
+<mythuitheme>
+
+  <window name="mainmenu">
+
+    <fontdef name="unselected_menu_font" from="h1_background_font">
+      <pixelsize>[% menu_font_pixelsize %]</pixelsize>
+    </fontdef>
+
+    <fontdef name="selected_menu_font" from="unselected_menu_font">
+      <color>[% active_selected_text_color %]</color>
+    </fontdef>
+
+    <buttonlist name="menu">
+      <area>0,3%,100%,97%</area>
+      <buttonarea>0,25,100%,-25</buttonarea>
+      <spacing>20</spacing>
+      <layout>vertical</layout>
+      <wrapstyle>items</wrapstyle>
+
+      <triggerevent context="Global" action="SELECT">RIGHT</triggerevent>
+      <triggerevent context="Global" action="ESCAPE">LEFT</triggerevent>
+
+      <statetype name="buttonitem">
+        <state name="active">
+          <area>0,0,100%,[% menu_font_pixelsize + 10 %]</area>
+          <shape name="item_background">
+            <area>0,0,100%,100%</area>
+            <type>box</type>
+            <fill color="[% unselected_button_bgcolor %]" />
+          </shape>
+          <textarea name="buttontext">
+            <area>0,0,100%,100%</area>
+            <font>unselected_menu_font</font>
+            <align>center,top</align>
+            <cutdown>yes</cutdown>
+          </textarea>
+        </state>
+        <state name="selectedactive" from="active">
+          <shape name="item_background">
+            <fill color="[% active_selected_button_bgcolor %]" />
+          </shape>
+          <textarea name="buttontext">
+            <font>selected_menu_font</font>
+          </textarea>
+        </state>
+      </statetype>
+
+      <statetype name="upscrollarrow">
+        <position>50%-15,0</position>
+        <showempty>yes</showempty>
+        <state type="full">
+          <imagetype name="upon">
+            <filename>images/up_arrow_menu.png</filename>
+          </imagetype>
+        </state>
+      </statetype>
+
+      <statetype name="downscrollarrow">
+        <position>50%-15,100%-15</position>
+        <showempty>yes</showempty>
+        <state type="full">
+          <imagetype name="dnon">
+            <filename>images/down_arrow_menu.png</filename>
+          </imagetype>
+        </state>
+      </statetype>
+    </buttonlist>
+
+  </window>
+
+</mythuitheme>

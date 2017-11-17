@@ -1,0 +1,901 @@
+<mythuitheme>
+
+  <window name="watchrecordings">
+
+    <buttonlist name="groups" from="base_buttonlist">
+      <area>0,10,373,[% body_height %]</area>
+      <spacing>[% recordings_button_spacing %]</spacing>
+      <statetype name="buttonitem">
+        <state name="active">
+          <area>0,0,100%,[% 2*h1_field_pixelsize + recordings_button_spacing %]</area>
+
+          <textarea name="buttontext">
+            <area>10,0,100%-10,[% h1_field_pixelsize %]</area>
+            <font>h1_active_unselected_button_font</font>
+            <align>left,vcenter</align>
+          </textarea>
+
+          <textarea name="reccount" from="buttontext">
+            <area>30,[% h1_field_pixelsize %],100%-10,[% h1_field_pixelsize %]</area>
+            <font>h2_active_unselected_button_font</font>
+            <align>left,vcenter</align>
+            <template>%RECCOUNT% recordings</template>
+          </textarea>
+
+          <shape name="group_separator">
+            <area>0,[% 2*h1_field_pixelsize + recordings_button_spacing %],100%,1</area>
+            <type>box</type>
+            <fill color="[% separator_color %]"/>
+          </shape>
+        </state>
+        <state name="selectedactive" from="active">
+          <shape name="item_background">
+            <area>0,[% -1*recordings_button_spacing %],100%,[% 2*h1_field_pixelsize + 2*recordings_button_spacing %]</area>
+            <fill color="[% active_selected_button_bgcolor %]" />
+          </shape>
+
+          <textarea name="buttontext">
+            <font>h1_active_selected_button_font</font>
+          </textarea>
+
+          <textarea name="reccount">
+            <font>h2_active_selected_button_font</font>
+          </textarea>
+        </state>
+        <state name="inactive" from="active" />
+        <state name="selectedinactive" from="active">
+          <shape name="item_background">
+            <area>0,[% -1*recordings_button_spacing %],100%,[% 2*h1_field_pixelsize + 2*recordings_button_spacing %]</area>
+            <fill color="[% inactive_selected_button_bgcolor %]" />
+          </shape>
+
+          <textarea name="buttontext">
+            <font>h1_inactive_selected_button_font</font>
+          </textarea>
+
+          <textarea name="reccount">
+            <font>h2_inactive_selected_button_font</font>
+          </textarea>
+        </state>
+      </statetype>
+    </buttonlist>
+
+    <shape name="group_border">
+      <area>373,0,[% line_width %],[% footer_y %]</area>
+      <type>box</type>
+      <fill color="#aaaaaa"/>
+    </shape>
+
+    <buttonlist name="recordings" from="base_buttonlist">
+      <area>[% 373 + line_width %],10,100%,[% body_height %]</area>
+      <spacing>[% recordings_button_spacing %]</spacing>
+      <!-- The default arrange=fixed doesn't work when the buttons change size,
+           like these do. Unfortunately arrange=fixed is the only one where
+           wrapstyle=free truly works. With the others, the selected item sticks
+           in the middle most of the time. -->
+      <arrange>stack</arrange>
+      <statetype name="buttonitem">
+        <state name="active">
+          <area>0,0,100%,[% 2*h1_field_pixelsize + recordings_button_spacing %]</area>
+
+          <textarea name="title">
+            <area>10,0,660,[% h1_field_pixelsize %]</area>
+            <font>h1_active_unselected_button_font</font>
+            <align>left,vcenter</align>
+          </textarea>
+
+          <textarea name="subtitle" from="title">
+            <area>30,[% h1_field_pixelsize %],770,[% h1_field_pixelsize %]</area>
+            <font>h2_active_unselected_button_font</font>
+            <align>left,vcenter</align>
+            <value>[no subtitle]</value>
+            <template>%LONGREPEAT%%SUBTITLE%</template>
+          </textarea>
+
+          <textarea name="startdate">
+            <area>680,0,100%-10,[% h1_field_pixelsize %]</area>
+            <font>h2_active_unselected_button_font</font>
+            <align>right,vcenter</align>
+          </textarea>
+
+          <statetype name="watched">
+            <state name="no">
+              <textarea name="watched_text" from="base_active_unselected_recording_icon">
+                <area>845,[% 1.5 * h1_field_pixelsize - 8 %],50,[% recording_icon_height %]</area>
+                <value>NEW</value>
+              </textarea>
+            </state>
+            <state name="yes" from="no">
+              <alpha>80</alpha>
+              <textarea name="watched_text">
+                <value>OLD</value>
+              </textarea>
+            </state>
+          </statetype>
+
+          <statetype name="jobstate">
+            <area>795,[% 1.5 * h1_field_pixelsize - 8 %],50,[% recording_icon_height %]</area>
+            <state name="recording">
+              <textarea name="recording_text" from="base_active_unselected_recording_icon">
+                <area>0,0,50,[% recording_icon_height %]</area>
+                <value>REC</value>
+              </textarea>
+              <alphapulse min="80" max="255" change="2"/>
+            </state>
+            <state name="transcoding">
+              <textarea name="recording_text" from="base_active_unselected_recording_icon">
+                <area>0,0,50,[% recording_icon_height %]</area>
+                <value>TRANS</value>
+              </textarea>
+              <alphapulse min="80" max="255" change="2"/>
+            </state>
+          </statetype>
+
+          <statetype name="playlist">
+            <state name="yes">
+              <shape name="unwatched">
+                <area>882,10,10,10</area>
+                <type>ellipse</type>
+                <fill color="#000000"/>
+              </shape>
+            </state>
+            <state name="no" />
+          </statetype>
+
+          <shape name="episode_separator">
+            <area>0,[% 2*h1_field_pixelsize + recordings_button_spacing %],100%,1</area>
+            <type>box</type>
+            <fill color="[% separator_color %]"/>
+          </shape>
+        </state>
+
+        <state name="inactive" from="active">
+          <textarea name="title">
+            <font>h1_inactive_unselected_button_font</font>
+          </textarea>
+          <textarea name="subtitle">
+            <font>h2_inactive_unselected_button_font</font>
+          </textarea>
+          <textarea name="startdate">
+            <font>h2_inactive_unselected_button_font</font>
+          </textarea>
+        </state>
+
+        <state name="selectedactive" from="active">
+          <area>0,0,100%,[% 6*h1_field_pixelsize + 5*recordings_button_spacing %]</area>
+
+          <shape name="item_background">
+            <!-- <area>0,[% -1*recordings_button_spacing %],100%,[% 6*h1_field_pixelsize + 6*recordings_button_spacing %]</area> -->
+            <fill color="[% active_selected_button_bgcolor %]" />
+          </shape>
+
+          <!-- This is an ugly hack to fill in the little gap between the
+               previous separator and the top of this item. Attempting to extend
+               the main item_background into that gap throws the layout off for
+               some reason. That same strategy works fine in the group list. -->
+          <shape name="item_background2">
+            <area>0,[% -1*recordings_button_spacing %],100%,[% recordings_button_spacing %]</area>
+            <type>box</type>
+            <fill color="[% active_selected_button_bgcolor %]" />
+          </shape>
+
+          <textarea name="title">
+            <font>h1_active_selected_button_font</font>
+          </textarea>
+
+          <textarea name="subtitle">
+            <font>h2_active_selected_button_font</font>
+          </textarea>
+
+          <textarea name="startdate">
+            <font>h2_active_selected_button_font</font>
+          </textarea>
+
+          <statetype name="watched">
+            <state name="no">
+              <textarea name="watched_text">
+                <font>recording_icon_active_selected_font</font>
+              </textarea>
+            </state>
+            <state name="yes" from="no">
+              <alpha>40</alpha>
+              <textarea name="watched_text">
+                <value>OLD</value>
+              </textarea>
+            </state>
+          </statetype>
+
+          <statetype name="jobstate">
+            <state name="recording">
+              <textarea name="recording_text">
+                <font>recording_icon_active_selected_font</font>
+              </textarea>
+            </state>
+            <state name="transcoding">
+              <textarea name="recording_text">
+                <font>recording_icon_active_selected_font</font>
+              </textarea>
+            </state>
+          </statetype>
+ 
+          <imagetype name="preview">
+            <area>30,[% 2*h1_field_pixelsize + 2*recordings_button_spacing %],181,[% 3*h1_field_pixelsize + 2*recordings_button_spacing %]</area>
+            <preserveaspect>true</preserveaspect>
+          </imagetype>
+
+          <textarea name="description">
+            <area>220,[% 2*h1_field_pixelsize + 2*recordings_button_spacing %],580,[% 3*h1_field_pixelsize + 2*recordings_button_spacing %]</area>
+            <font>h2_active_selected_button_font</font>
+            <align>left,top</align>
+            <multiline>yes</multiline>
+            <cutdown>yes</cutdown>
+            <value>[no description]</value>
+          </textarea>
+
+          <textarea name="channel">
+            <area>10,[% 5*(h1_field_pixelsize + recordings_button_spacing) %],790,[% h1_field_pixelsize %]</area>
+            <font>h2_active_selected_button_font</font>
+            <template>%CALLSIGN% %CHANNUM%  //  %STARTTIME% - %ENDTIME%  //  %LENMINS%  //  %FILESIZE_STR%</template>
+            <align>left,vcenter</align>
+          </textarea>
+
+          <statetype name="commflagged">
+            <area>805,[% 2*h1_field_pixelsize + 2*recordings_button_spacing + 0*recording_icon_height %],[% recording_icon_width %],[% recording_icon_height %]</area>
+            <state name="yes">
+              <textarea name="commflag_icon" from="base_active_selected_recording_icon">
+                <area>0,0,[% recording_icon_width %],[% recording_icon_height %]</area>
+                <value>COMMFLAG</value>
+              </textarea>
+            </state>
+            <state name="no" from="yes">
+              <alpha>40</alpha>
+            </state>
+            <state name="running" from="yes">
+              <alphapulse min="20" max="255" change="2"/>
+            </state>
+            <state name="queued" from="no"/>
+          </statetype>
+
+          <statetype name="cutlist">
+            <area>805,[% 2*h1_field_pixelsize + 2*recordings_button_spacing + 1*recording_icon_height %],90,[% recording_icon_height %]</area>
+            <state name="yes">
+              <textarea name="cutlist_icon" from="base_active_selected_recording_icon">
+                <area>0,0,[% recording_icon_width %],[% recording_icon_height %]</area>
+                <value>CUTLIST</value>
+              </textarea>
+            </state>
+            <state name="no" from="yes">
+              <alpha>40</alpha>
+            </state>
+          </statetype>
+
+          <statetype name="bookmark">
+            <area>805,[% 2*h1_field_pixelsize + 2*recordings_button_spacing + 2*recording_icon_height %],90,[% recording_icon_height %]</area>
+            <state name="yes">
+              <textarea name="bookmark_icon" from="base_active_selected_recording_icon">
+                <area>0,0,[% recording_icon_width %],[% recording_icon_height %]</area>
+                <value>BOOKMARK</value>
+              </textarea>
+            </state>
+            <state name="no" from="yes">
+              <alpha>40</alpha>
+            </state>
+          </statetype>
+
+          <statetype name="videoprops">
+            <area>805,[% 2*h1_field_pixelsize + 2*recordings_button_spacing + 3*recording_icon_height %],90,[% recording_icon_height %]</area>
+            <state name="default">
+              <textarea name="sd_icon" from="base_active_selected_recording_icon">
+                <area>0,0,[% recording_icon_width %],[% recording_icon_height %]</area>
+                <value>SD</value>
+              </textarea>
+            </state>
+            <state name="hd1080">
+              <textarea name="hd1080_icon" from="base_active_selected_recording_icon">
+                <area>0,0,[% recording_icon_width %],[% recording_icon_height %]</area>
+                <value>HD1080</value>
+              </textarea>
+            </state>
+            <state name="hd720">
+              <textarea name="hd720_icon" from="base_active_selected_recording_icon">
+                <area>0,0,[% recording_icon_width %],[% recording_icon_height %]</area>
+                <value>HD720</value>
+              </textarea>
+            </state>
+            <state name="hdtv">
+              <textarea name="hdtv_icon" from="base_active_selected_recording_icon">
+                <area>0,0,[% recording_icon_width %],[% recording_icon_height %]</area>
+                <value>HDTV</value>
+              </textarea>
+            </state>
+            <state name="widescreen">
+              <textarea name="wide_icon" from="base_active_selected_recording_icon">
+                <area>0,0,[% recording_icon_width %],[% recording_icon_height %]</area>
+                <value>WIDE</value>
+              </textarea>
+            </state>
+          </statetype>
+
+          <statetype name="audioprops">
+            <area>805,[% 2*h1_field_pixelsize + 2*recordings_button_spacing + 4*recording_icon_height %],90,[% recording_icon_height %]</area>
+            <state name="default">
+              <textarea name="audio_icon" from="base_active_selected_recording_icon">
+                <area>0,0,[% recording_icon_width %],[% recording_icon_height %]</area>
+                <value>AUDIO</value>
+              </textarea>
+              <alpha>40</alpha>
+            </state>
+            <state name="stereo">
+              <textarea name="stereo_icon" from="base_active_selected_recording_icon">
+                <area>0,0,[% recording_icon_width %],[% recording_icon_height %]</area>
+                <value>STEREO</value>
+              </textarea>
+            </state>
+            <state name="surround">
+              <textarea name="surround_icon" from="base_active_selected_recording_icon">
+                <area>0,0,[% recording_icon_width %],[% recording_icon_height %]</area>
+                <value>SURROUND</value>
+              </textarea>
+            </state>
+            <state name="dolby">
+              <textarea name="dolby_icon" from="base_active_selected_recording_icon">
+                <area>0,0,[% recording_icon_width %],[% recording_icon_height %]</area>
+                <value>DOLBY</value>
+              </textarea>
+            </state>
+            <state name="mono">
+              <textarea name="mono_icon" from="base_active_selected_recording_icon">
+                <area>0,0,[% recording_icon_width %],[% recording_icon_height %]</area>
+                <value>MONO</value>
+              </textarea>
+            </state>
+          </statetype>
+
+          <statetype name="subtitletypes">
+            <area>805,[% 2*h1_field_pixelsize + 2*recordings_button_spacing + 5*recording_icon_height %],90,[% recording_icon_height %]</area>
+            <state name="cc">
+              <textarea name="cc_icon" from="base_active_selected_recording_icon">
+                <area>0,0,[% recording_icon_width %],[% recording_icon_height %]</area>
+                <value>CC</value>
+              </textarea>
+            </state>
+            <state name="subtitles" from="cc"/>
+            <state name="onscreensub" from="cc"/>
+            <state name="default" from="cc">
+              <alpha>40</alpha>
+            </state>
+          </statetype>
+
+          <statetype name="autoexpire">
+            <area>805,[% 2*h1_field_pixelsize + 2*recordings_button_spacing + 6*recording_icon_height %],90,[% recording_icon_height %]</area>
+            <state name="yes">
+              <textarea name="autoexpire_icon" from="base_active_selected_recording_icon">
+                <area>0,0,[% recording_icon_width %],[% recording_icon_height %]</area>
+                <value>EXPIRABLE</value>
+              </textarea>
+            </state>
+            <state name="no" from="yes">
+              <alpha>40</alpha>
+            </state>
+          </statetype>
+
+          <shape name="episode_separator">
+            <area>0,[% 6*h1_field_pixelsize + 5*recordings_button_spacing %],100%,1</area>
+          </shape>
+        </state>
+
+        <state name="selectedinactive" from="selectedactive">
+          <shape name="item_background">
+            <fill color="[% inactive_selected_button_bgcolor %]" />
+          </shape>
+          <shape name="item_background2">
+            <fill color="[% inactive_selected_button_bgcolor %]" />
+          </shape>
+
+          <textarea name="title">
+            <font>h1_inactive_selected_button_font</font>
+          </textarea>
+
+          <textarea name="subtitle">
+            <font>h2_inactive_selected_button_font</font>
+          </textarea>
+
+          <textarea name="startdate">
+            <font>h2_inactive_selected_button_font</font>
+          </textarea>
+
+          <statetype name="watched">
+            <state name="no">
+              <textarea name="watched_text">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+          </statetype>
+
+          <statetype name="jobstate">
+            <state name="recording">
+              <textarea name="recording_text">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+            <state name="transcoding">
+              <textarea name="recording_text">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+          </statetype>
+
+          <textarea name="description">
+            <font>h2_inactive_selected_button_font</font>
+          </textarea>
+
+          <textarea name="channel">
+            <font>h2_inactive_selected_button_font</font>
+          </textarea>
+
+          <!-- <imagetype name="preview"> -->
+          <!--   <grayscale>true</grayscale> -->
+          <!-- </imagetype> -->
+
+          <statetype name="commflagged">
+            <state name="yes">
+              <textarea name="commflag_icon">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+          </statetype>
+
+          <statetype name="cutlist">
+            <state name="yes">
+              <textarea name="cutlist_icon">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+          </statetype>
+
+          <statetype name="bookmark">
+            <state name="yes">
+              <textarea name="bookmark_icon">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+          </statetype>
+
+          <statetype name="videoprops">
+            <state name="default">
+              <textarea name="sd_icon">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+            <state name="hd1080">
+              <textarea name="hd1080_icon">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+            <state name="hd720">
+              <textarea name="hd720_icon">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+            <state name="hdtv">
+              <textarea name="hdtv_icon">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+            <state name="widescreen">
+              <textarea name="wide_icon">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+          </statetype>
+
+          <statetype name="audioprops">
+            <state name="default">
+              <textarea name="audio_icon">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+            <state name="stereo">
+              <textarea name="stereo_icon">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+            <state name="surround">
+              <textarea name="surround_icon">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+            <state name="dolby">
+              <textarea name="dolby_icon">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+            <state name="mono">
+              <textarea name="mono_icon">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+          </statetype>
+
+          <statetype name="subtitletypes">
+            <state name="cc">
+              <textarea name="cc_icon">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+          </statetype>
+
+          <statetype name="autoexpire">
+            <state name="yes">
+              <textarea name="autoexpire_icon">
+                <font>recording_icon_inactive_selected_font</font>
+              </textarea>
+            </state>
+          </statetype>
+
+        </state>
+
+      </statetype>
+    </buttonlist>
+
+    <group name="footer_infobar" from="base_footer_infobar">
+      <textarea name="pagetitle">
+        <value>Watch Recordings</value>
+      </textarea>
+
+      <textarea name="freereport">
+        <area>10,[% line_width %],-10,[% h1_font_pixelsize + 18 %]</area>
+        <align>vcenter,center</align>
+        <font>h2_foreground_font</font>
+      </textarea>
+    </group>
+
+    <textarea name="norecordings">
+      <area>385,16,100%,[% h1_field_pixelsize %]</area>
+      <font>h1_foreground_font</font>
+      <value>No recordings available.</value>
+    </textarea>
+  </window>
+
+  <!-- MENU > Change Group View -->
+  <window name="changeview">
+    <area>-1,-1,500,500</area>
+    <group name="dialog_header" from="base_dialog_header">
+      <textarea name="title">
+        <value>Choose Groups to Display</value>
+      </textarea>
+    </group>
+
+    [% check_y = dialog_header_height + 20 %]
+    <checkbox name="titles" from="base_checkbox">
+      <area>0,[% check_y %],100%,[% h1_field_pixelsize %]</area>
+    </checkbox>
+    <textarea name="titles_label">
+      <area>40,[% check_y %],100%,[% h1_field_pixelsize %]</area>
+      <font>h2_foreground_font</font>
+      <align>left,vcenter</align>
+      <value>Titles</value>
+    </textarea>
+
+    [% check_y = check_y + h1_field_pixelsize %]
+    <checkbox name="categories" from="base_checkbox">
+      <area>0,[% check_y %],100%,[% h1_field_pixelsize %]</area>
+    </checkbox>
+    <textarea name="categories_label" from="titles_label">
+      <area>40,[% check_y %],100%,[% h1_field_pixelsize %]</area>
+      <value>Categories</value>
+    </textarea>
+
+    [% check_y = check_y + h1_field_pixelsize %]
+    <checkbox name="recgroups" from="base_checkbox">
+      <area>0,[% check_y %],100%,[% h1_field_pixelsize %]</area>
+    </checkbox>
+    <textarea name="recgroups_label" from="titles_label">
+      <area>40,[% check_y %],100%,[% h1_field_pixelsize %]</area>
+      <value>Recording Groups</value>
+    </textarea>
+
+    [% check_y = check_y + h1_field_pixelsize %]
+    <checkbox name="partwatch" from="base_checkbox">
+      <area>0,[% check_y %],100%,[% h1_field_pixelsize %]</area>
+    </checkbox>
+    <textarea name="partwatch_label" from="titles_label">
+      <area>40,[% check_y %],100%,[% h1_field_pixelsize %]</area>
+      <value>Partially Watched</value>
+    </textarea>
+
+    [% check_y = check_y + h1_field_pixelsize %]
+    <checkbox name="watchlist" from="base_checkbox">
+      <area>0,[% check_y %],100%,[% h1_field_pixelsize %]</area>
+    </checkbox>
+    <textarea name="watchlist_label" from="titles_label">
+      <area>40,[% check_y %],100%,[% h1_field_pixelsize %]</area>
+      <value>Watch List</value>
+    </textarea>
+
+    [% check_y = check_y + h1_field_pixelsize %]
+    <checkbox name="searches" from="base_checkbox">
+      <area>0,[% check_y %],100%,[% h1_field_pixelsize %]</area>
+    </checkbox>
+    <textarea name="searches_label" from="titles_label">
+      <area>40,[% check_y %],100%,[% h1_field_pixelsize %]</area>
+      <value>Searches</value>
+    </textarea>
+
+    [% check_y = check_y + h1_field_pixelsize %]
+    <checkbox name="livetv" from="base_checkbox">
+      <area>0,[% check_y %],100%,[% h1_field_pixelsize %]</area>
+    </checkbox>
+    <textarea name="livetv_label" from="titles_label">
+      <area>40,[% check_y %],100%,[% h1_field_pixelsize %]</area>
+      <value>Live TV</value>
+    </textarea>
+
+    [% check_y = check_y + h1_field_pixelsize + 20 %]
+    <checkbox name="watched" from="base_checkbox">
+      <area>0,[% check_y %],100%,[% h1_field_pixelsize %]</area>
+    </checkbox>
+    <textarea name="watched_label" from="titles_label">
+      <area>40,[% check_y %],100%,[% h1_field_pixelsize %]</area>
+      <value>Include Watched Programs</value>
+    </textarea>
+
+    [% button_y = check_y + h1_field_pixelsize + 40 %]
+    <button name="save" from="base_button">
+      <position>10,[% button_y %]</position>
+      <value>Save</value>
+    </button>
+  </window>
+
+  <!-- MENU > Help (Status Icons) -->
+  <window name="iconhelp">
+    <area>-1,-1,700,500</area>
+    <group name="dialog_header" from="base_dialog_header">
+      <group name="background" from="base_dialog_background">
+        <area>0,0,700,500</area>
+      </group>
+      <textarea name="title">
+        <value>Icon Legend</value>
+      </textarea>
+    </group>
+
+    <buttonlist name="iconlist" from="base_buttonlist">
+      <area>0,[% 10 + h1_field_pixelsize + 20 %],100%,100%-10</area>
+
+      <statetype name="buttonitem">
+        <area>0,0,100%,[% h1_field_pixelsize %]</area>
+
+        <state name="active">
+          <statetype name="icons">
+            <position>10,5</position>
+            <state name="commflagged">
+              <textarea name="status_text" from="base_active_selected_recording_icon">
+                <area>0,0,[% recording_icon_width%],[% recording_icon_height %]</area>
+                <value>COMMFLAG</value>
+              </textarea>
+            </state>
+            <state name="cutlist" from="commflagged">
+              <textarea name="status_text">
+                <value>CUTLIST</value>
+              </textarea>
+            </state>
+            <state name="autoexpire" from="commflagged">
+              <textarea name="status_text">
+                <value>EXPIRABLE</value>
+              </textarea>
+            </state>
+            <state name="processing" from="commflagged">
+              <alphapulse min="80" max="255" change="2"/>
+              <textarea name="status_text">
+                <value>COMMFLAG</value>
+              </textarea>
+            </state>
+            <state name="bookmark" from="commflagged">
+              <textarea name="status_text">
+                <value>BOOKMARK</value>
+              </textarea>
+            </state>
+            <state name="mono" from="commflagged">
+              <textarea name="status_text">
+                <value>MONO</value>
+              </textarea>
+            </state>
+            <state name="stereo" from="commflagged">
+              <textarea name="status_text">
+                <value>STEREO</value>
+              </textarea>
+            </state>
+            <state name="surround" from="commflagged">
+              <textarea name="status_text">
+                <value>SURROUND</value>
+              </textarea>
+            </state>
+            <state name="dolby" from="commflagged">
+              <textarea name="status_text">
+                <value>DOLBY</value>
+              </textarea>
+            </state>
+            <state name="cc" from="commflagged">
+              <textarea name="status_text">
+                <value>CC</value>
+              </textarea>
+            </state>
+            <state name="subtitles" from="cc" />
+            <state name="onscreensub" from="cc" />
+            <state name="hdtv" from="commflagged">
+              <textarea name="status_text">
+                <value>HD</value>
+              </textarea>
+            </state>
+            <state name="hd720" from="commflagged">
+              <textarea name="status_text">
+                <value>HD720</value>
+              </textarea>
+            </state>
+            <state name="hd1080" from="commflagged">
+              <textarea name="status_text">
+                <value>HD1080</value>
+              </textarea>
+            </state>
+            <state name="avchd" from="commflagged">
+              <textarea name="status_text">
+                <value>H.264</value>
+              </textarea>
+            </state>
+            <state name="widescreen" from="commflagged">
+              <textarea name="status_text">
+                <value>WIDE</value>
+              </textarea>
+            </state>
+            <state name="watched" from="commflagged">
+              <alpha>80</alpha>
+              <textarea name="status_text">
+                <value>OLD</value>
+              </textarea>
+            </state>
+          </statetype>
+
+          <textarea name="buttontext">
+            <area>[% 10 + recording_icon_width + 20 %],0,100%-10,100%</area>
+          </textarea>
+        </state>
+        <state name="selectedactive" from="active" />
+      </statetype>
+    </buttonlist>
+  </window>
+
+  <!-- TODO: Work on this. -->
+  <window name="groupselector">
+      <area>-1,-1,400,500</area>
+
+      <group name="background" from="base_dialog_background">
+          <area>0,0,400,500</area>
+      </group>
+
+      <textarea name="label">
+          <area>1,1,398,100</area>
+          <multiline>yes</multiline>
+          <align>allcenter</align>
+          <font>h1_foreground_font</font>
+      </textarea>
+
+      <buttonlist name="groups" from="base_buttonlist">
+          <area>1,110,398,370</area>
+      </buttonlist>
+  </window>
+
+  <!-- TODO: Work on this. -->
+  <window name="passwordchanger">
+      <area>-1,-1,500,500</area>
+
+      <shape name="backimg" from="basebackground">
+          <area>0,0,500,500</area>
+      </shape>
+
+      <textarea name="label" from="basetextarea">
+          <area>10,15,480,160</area>
+          <multiline>yes</multiline>
+          <align>allcenter</align>
+          <value>Change Recording Group Password</value>
+      </textarea>
+
+      <textarea name="oldpasslabel" from="basetextarea">
+          <area>58,180,300,30</area>
+          <value>Old Password:</value>
+      </textarea>
+
+      <textedit name="oldpassword" from="basetextedit">
+          <position>58,210</position>
+      </textedit>
+
+      <textarea name="newpasslabel" from="basetextarea">
+          <area>58,310,300,30</area>
+          <value>New Password:</value>
+      </textarea>
+
+      <textedit name="newpassword" from="basetextedit">
+          <position>58,340</position>
+      </textedit>
+
+      <button name="ok" from="basebutton">
+          <position>175,435</position>
+          <value>OK</value>
+      </button>
+  </window>
+
+  <!-- TODO: Work on this. -->
+  <window name="editmetadata">
+      <area>-1,-1,500,500</area>
+
+      <shape name="backimg" from="basebackground">
+          <area>0,0,500,500</area>
+      </shape>
+
+      <textarea name="label" from="basetextarea">
+          <area>10,15,480,50</area>
+          <multiline>yes</multiline>
+          <align>allcenter</align>
+          <value>Edit Recording Metadata</value>
+      </textarea>
+
+      <textarea name="title_label" from="basetextarea">
+          <area>10,65,300,30</area>
+          <value>Title:</value>
+      </textarea>
+
+      <textedit name="title" from="basetextedit">
+          <position>100,65</position>
+      </textedit>
+
+      <textarea name="subtitlelabel" from="basetextarea">
+          <area>10,100,300,30</area>
+          <value>Subtitle:</value>
+      </textarea>
+
+      <textedit name="subtitle" from="basetextedit">
+          <position>100,100</position>
+      </textedit>
+
+      <textarea name="inetref_label" from="title_label">
+          <position>10,135</position>
+          <value>Inetref:</value>
+      </textarea>
+
+      <textedit name="inetref" from="basetextedit">
+          <position>100,135</position>
+      </textedit>
+
+      <textarea name="season_label" from="basetextarea">
+          <area>10,170,175,30</area>
+          <value>Season:</value>
+      </textarea>
+
+      <spinbox name="season" from="basespinbox">
+          <position>100,170</position>
+      </spinbox>
+
+      <textarea name="episode_label" from="season_label">
+          <position>225,170</position>
+          <value>Episode:</value>
+      </textarea>
+
+      <spinbox name="episode" from="basespinbox">
+          <position>315,170</position>
+      </spinbox>
+
+      <textarea name="description_label" from="basetextarea">
+          <area>10,205,250,250</area>
+          <value>Description:</value>
+      </textarea>
+
+      <textedit name="description" from="basemultilinetextedit">
+          <area>50,235,100%,100%</area>
+      </textedit>
+
+      <button name="ok" from="basebutton">
+          <position>175,435</position>
+          <value>OK</value>
+      </button>
+  </window>
+
+</mythuitheme>

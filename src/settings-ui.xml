@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mythuitheme SYSTEM "http://www.mythtv.org/schema/mythuitheme.dtd">
+<mythuitheme>
+
+  <window name="themechooser">
+    [% theme_list_width = 512 %]
+
+    <group name="footer_infobar" from="base_footer_infobar">
+      <textarea name="pagetitle">
+        <value>Theme Chooser</value>
+      </textarea>
+
+      <progressbar name="downloadprogressbar" from="base_progressbar">
+        <area>50%-200,50%-3.5,400,7</area>
+      </progressbar>
+    </group>
+
+    <buttonlist name="themes" from="base_buttonlist">
+      <area>100%-[% theme_list_width %],10,[% theme_list_width %],[% body_height %]</area>
+      <spacing>[% recordings_button_spacing %]</spacing>
+
+      <statetype name="buttonitem">
+        <state name="active">
+          <area>0,0,100%,[% 2*h1_field_pixelsize + recordings_button_spacing %]</area>
+
+          [% list_preview_height = 2*h1_field_pixelsize %]
+          [% list_preview_width = 16 / 9 * list_preview_height %]
+
+          <imagetype name="buttonimage">
+            <area>10,0,[% list_preview_width %],[% list_preview_height %]</area>
+            <preserveaspect>yes</preserveaspect>
+          </imagetype>
+
+          <textarea name="buttontext">
+            <area>[% 10 + list_preview_width + 10 %],0,100%-10,[% h1_field_pixelsize %]</area>
+            <font>h1_active_unselected_button_font</font>
+            <align>left,vcenter</align>
+          </textarea>
+
+          [% location_x = 10 + list_preview_width + 40 %]
+
+          <statetype name="themelocation">
+            <state name="remote">
+              <textarea name="location_text">
+                <area>[% location_x %],[% h1_field_pixelsize %],[% theme_list_width - location_x %],[% h1_field_pixelsize %]</area>
+                <font>h2_active_unselected_button_font</font>
+                <align>left,vcenter</align>
+                <value>available for download</value>
+              </textarea>
+            </state>
+            <state name="local" from="remote">
+              <textarea name="location_text">
+                <value>installed</value>
+              </textarea>
+            </state>
+          </statetype>
+
+          <shape name="group_separator">
+            <area>0,[% 2*h1_field_pixelsize + recordings_button_spacing %],100%,1</area>
+            <type>box</type>
+            <fill color="[% separator_color %]"/>
+          </shape>
+        </state>
+        <state name="selectedactive" from="active">
+          <shape name="item_background">
+            <area>0,[% -1*recordings_button_spacing %],100%,[% 2*h1_field_pixelsize + 2*recordings_button_spacing %]</area>
+            <fill color="[% active_selected_button_bgcolor %]" />
+          </shape>
+
+          <textarea name="buttontext">
+            <font>h1_active_selected_button_font</font>
+          </textarea>
+
+          <statetype name="themelocation">
+            <state name="remote">
+              <textarea name="location_text">
+                <font>h2_active_selected_button_font</font>
+              </textarea>
+            </state>
+            <state name="local">
+              <textarea name="location_text">
+                <font>h2_active_selected_button_font</font>
+              </textarea>
+            </state>
+          </statetype>
+        </state>
+        <state name="inactive" from="active" />
+        <state name="selectedinactive" from="active" />
+      </statetype>
+    </buttonlist>
+
+    <shape name="list_border">
+      <area>100%-[% theme_list_width %],0,[% line_width %],[% footer_y %]</area>
+      <type>box</type>
+      <fill color="#aaaaaa"/>
+    </shape>
+
+    <group name="theme_details">
+      <area>10,10,100%-[% theme_list_width + 10 %],[% body_height %]</area>
+
+      [% name_y = 10 %]
+      [% name_height = h1_field_pixelsize %]
+
+      <textarea name="name">
+        <area>0,[% name_y %],100%,[% name_height %]</area>
+        <align>left,top</align>
+        <font>h1_foreground_font</font>
+      </textarea>
+
+      [% details_y = name_y + name_height + 10 %]
+      [% details_height = 1*h1_field_pixelsize %]
+
+      <textarea name="aspect">
+        <area>0,[% details_y %],100%,[% details_height %]</area>
+        <align>left,top</align>
+        <font>h2_foreground_font</font>
+        <template>%ASPECT%  //  %RESOLUTION%  //  ver. %VERSION%%  //  by |AUTHORNAME%</template>
+      </textarea>
+
+      [% description_y = details_y + details_height + 10 %]
+      [% description_height = 4*h1_field_pixelsize %]
+
+      <textarea name="errata">
+        <area>0,[% description_y %],100%,[% description_height %]</area>
+        <align>left,top</align>
+        <font>h2_foreground_font</font>
+        <multiline>yes</multiline>
+        <cutdown>yes</cutdown>
+      </textarea>
+
+      [% preview_y = description_y + description_height + 10 %]
+      [% preview_height = body_height - preview_y - 10 %]
+
+      <imagetype name="preview">
+        <area>0,[% preview_y %],100%,[% preview_height %]</area>
+        <preserveaspect>yes</preserveaspect>
+      </imagetype>
+
+    </group>
+
+    <statetype name="fullpreviewstate">
+      <area>0,0,[% screen_width %],[% screen_height %]</area>
+      <state name="fullscreen">
+        <imagetype name="fullscreenpreview">
+          <area>0,0,[% screen_width %],[% screen_height %]</area>
+        </imagetype>
+
+        <textarea name="preview_text">
+          <area>0,0,[% screen_width %],[% screen_height %]</area>
+          <font>fullscreen_watermark</font>
+          <alpha>64</alpha>
+          <align>center,vcenter</align>
+          <value>PREVIEW</value>
+        </textarea>
+      </state>
+    </statetype>
+
+  </window>
+
+
+    <!-- TODO: Work on this. -->
+    <window name="rawsettingseditor">
+        <textarea name="heading" from="basetextarea">
+            <area>20,20,1240,40</area>
+            <align>allcenter</align>
+            <font>baselarge</font>
+        </textarea>
+
+        <buttonlist name="settings" from="basebuttonlist">
+            <area>20,80,400,400</area>
+            <layout>vertical</layout>
+            <spacing>5</spacing>
+            <scrollstyle>free</scrollstyle>
+            <wrapstyle>none</wrapstyle>
+            <buttonarea>0,0,400,380</buttonarea>
+            <triggerevent context="Global" action="ESCAPE">LEFT</triggerevent>
+        </buttonlist>
+
+        <shape name="label-shape">
+            <area>20,500,400,30</area>
+            <type>roundbox</type>
+            <fill color="#000000" alpha="130" />
+            <cornerradius>4</cornerradius>
+        </shape>
+
+        <textarea name="label-text">
+            <area>24,500,392,30</area>
+            <font>basesmallgreen</font>
+            <align>left,vcenter</align>
+        </textarea>
+
+        <shape name="background">
+            <area>428,500,830,30</area>
+            <type>roundbox</type>
+            <fill color="#FFFFFF" />
+            <cornerradius>4</cornerradius>
+        </shape>
+
+        <textedit name="settingvalue">
+            <area>428,500,830,30</area>
+            <imagetype name="cursor">
+                <filename>images/cursor.png</filename>
+            </imagetype>
+            <textarea name="text">
+                <area>5,0,820,30</area>
+                <font>basesmallblack</font>
+            </textarea>
+        </textedit>
+
+        <button name="cancel" from="basebutton">
+            <position>20,660</position>
+            <value>Cancel</value>
+        </button>
+
+        <button name="save" from="basebutton">
+            <position>1110,660</position>
+            <value>Save</value>
+        </button>
+
+    </window>
+
+
+
+</mythuitheme>
