@@ -4,6 +4,8 @@ Corner Case is designed to be a plain theme with a boxy appearance. It contains 
 
 Not all windows have been themed in the Corner Case style. Notably, none of the MythTV plugins have been themed. Unthemed windows will fall back either to the MythTV defaults or to the Mythbuntu version on which this theme was originally based.
 
+![theme screenshot](src/images/preview.png)
+
 ## Building
 
 Source files for the theme are provided in the `src` directory. To build the theme:
