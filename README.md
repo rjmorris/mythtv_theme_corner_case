@@ -14,7 +14,7 @@ Source files for the theme are provided in the `src` directory. To build the the
 1. Install the following perl packages:
 
     - Template
-    - File::Find::Recursive
+    - File::Copy::Recursive
 
 1. Run `perl build.pl` from the repo's root directory.
 
