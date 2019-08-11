@@ -80,7 +80,7 @@
             <cutdown>no</cutdown>
             <multiline>yes</multiline>
             <align>right,vcenter</align>
-            <template>%CALLSIGN% %CHANNELNUMBER%</template>
+            <template>%CHANNELNAME%\n%CHANNELNUMBER%</template>
           </textarea>
         </state>
         <state name="selectedactive" from="active"/>
@@ -264,7 +264,7 @@
             <area>820,[% h1_field_pixelsize %],100%-10,[% h1_field_pixelsize %]</area>
             <font>h2_active_unselected_button_font</font>
             <align>right,vcenter</align>
-            <template>%CALLSIGN% %CHANNUM%</template>
+            <template>%CHANNAME% %CHANNUM%</template>
           </textarea>
 
           <shape name="episode_separator">
@@ -507,7 +507,7 @@
             <area>820,[% h1_field_pixelsize %],100%-10,[% h1_field_pixelsize %]</area>
             <font>h2_active_unselected_button_font</font>
             <align>right,vcenter</align>
-            <template>%CALLSIGN% %CHANNUM%</template>
+            <template>%CHANNAME% %CHANNUM%</template>
           </textarea>
 
           <shape name="episode_separator">

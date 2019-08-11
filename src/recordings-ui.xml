@@ -235,7 +235,7 @@
           <textarea name="channel">
             <area>10,[% 5*(h1_field_pixelsize + recordings_button_spacing) %],790,[% h1_field_pixelsize %]</area>
             <font>h2_active_selected_button_font</font>
-            <template>%CALLSIGN% %CHANNUM%  //  %STARTTIME% - %ENDTIME%  //  %LENMINS%  //  %FILESIZE_STR%</template>
+            <template>%CHANNAME% %CHANNUM%  //  %STARTTIME% - %ENDTIME%  //  %LENMINS%  //  %FILESIZE_STR%</template>
             <align>left,vcenter</align>
           </textarea>
 

@@ -96,7 +96,7 @@
           <font>h2_foreground_font</font>
           <area>0,130,100%,[% h1_field_pixelsize %]</area>
           <align>left,vcenter</align>
-          <template>%CALLSIGN% %CHANNUM%  //  %STARTDATE%  //  %STARTTIME% - %ENDTIME%  //  %LENMINS%</template>
+          <template>%CHANNAME% %CHANNUM%  //  %STARTDATE%  //  %STARTTIME% - %ENDTIME%  //  %LENMINS%</template>
         </textarea>
       </state>
 
@@ -358,7 +358,7 @@
       <font>h2_foreground_font</font>
       <area>10,180,-10,[% h1_field_pixelsize %]</area>
       <align>left,vcenter</align>
-      <template>%CALLSIGN% %CHANNUM%  //  %STARTTIME% - %ENDTIME%  //  %LENMINS%</template>
+      <template>%CHANNAME% %CHANNUM%  //  %STARTTIME% - %ENDTIME%  //  %LENMINS%</template>
     </textarea>
   </window>
 

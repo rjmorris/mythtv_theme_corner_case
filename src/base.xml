@@ -443,7 +443,7 @@
       <area>10,[% 10 + h1_field_pixelsize + 10 %],100%-10,[% h1_field_pixelsize %]</area>
       <align>left,vcenter</align>
       <font>h2_foreground_font</font>
-      <template>%CALLSIGN% %CHANNELNUMBER%  //  %STARTTIME% - %ENDTIME%  //  %LENMINS%  //  %RECTYPESTATUS% </template>
+      <template>%CHANNELNAME% %CHANNELNUMBER%  //  %STARTTIME% - %ENDTIME%  //  %LENMINS%  //  %RECTYPESTATUS% </template>
     </textarea>
 
     <textarea name="description">
